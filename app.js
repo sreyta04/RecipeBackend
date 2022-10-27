@@ -2,7 +2,7 @@ var express = require('express');
 const bodyParser = require('body-parser');
 var app = express();
 const routes = require('./routes/index');
-const port = 3000
+const port = 3001
 const {dbConn} = require('./models/dbConnection')
 
 //database connection
@@ -23,12 +23,15 @@ app.get('/', function(req, res,next) {
   res.send("Welcome");
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Recipe App Running on http://localhost:${port}`)
 });
 // close the database connection
-dbConn.on('close', function(err) {
-  console.log('request closed');
+process.on("SIGINT", () => {
+  dbConn.end(() => {
+    console.log("disconnected");
+    process.exit(0);
+  })
 })
 module.exports = {
   app
