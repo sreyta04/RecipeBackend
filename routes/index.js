@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 const getAllIngredients = require('../controllers/ingredientController');
+const getAllRecipes = require('../controllers/recipeController');
 
-//get in
+//get ingredients
 router.get('/get-ingredients', getAllIngredients.getIngredients )
 router.get('/get-recipe-ingredients', getAllIngredients.getRecipeIngredients)
 router.put('/delete-recipe', getAllIngredients.deleteRecipe)
@@ -17,5 +18,9 @@ router.get('/get-categories', getAllCategories.getCategories )
 // router.get('/get-recipe-ingredients', getAllIngredients.getRecipeIngredients)
 // router.put('/delete-recipe', getAllIngredients.deleteRecipe)
 router.get('/category-detial', getAllCategories.getCategoryById)
+
+// Recipes
+router.get('/get-recipes', getAllRecipes.getAllRecipes )
+router.post('/create-recipe', getAllRecipes.createRecipe)
 
 exports.router = router
